@@ -10,23 +10,18 @@
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <script>
 
-$(function(){
-  // 함수 호출
-  fnBookList();
-  fnBookRegister();
-  fnBookRegister2();
-})
+  $(function(){
+    fnList();
+    fnAdd();
+  })
 
-
-  // 함수 정의
-  function fnArticleList(){
+  function fnList(){
     $('#btn_list').click(function(){  
       location.href = '${contextPath}/book/list.do';
     })
   }
-  // 함수 정의
-  function fnArticleRegister(){
-    $('#frm_register').submit(function(event){
+  function fnAdd(){
+    $('#frm_add').submit(function(event){
       if($('#title').val() === ''){
         alert('제목은 필수입니다.');
         $('#title').focus();
@@ -35,35 +30,24 @@ $(function(){
       }
     })
   }
-  // 함수 정의
-  function fnArticleRegister2(){
-    $('#frm_register').submit(function(event){
-      if($('#editor').val() === ''){
-        alert('작성자는 필수입니다.');
-        $('#editor').focus();
-        event.preventDefault();
-        return;
-      }
-    })
-  }
- 
-  
+
 </script>
 </head>
 <body>
 
 <div>
-  <form id="frm_register" method="post" action="${contextPath}/book/register.do">
+  <form id="frm_add" method="post" action="${contextPath}/book/add.do">
     <div>
-      <label for="title">기사제목</label>
+      <label for="title">제목</label>
       <input type="text" id="title" name="title">
     </div>
     <div>
-      <label for="editor">작성자</label>
-      <input type="text" id="editor" name="editor">
+      <label for="author">저자</label>
+      <input type="text" id="author" name="author">
     </div>
     <div>
-      <textarea rows="5" cols="50" name="content"></textarea>
+      <label for="price">가격</label>
+      <input type="text" id="price" name="price">
     </div>
     <div>
       <button type="submit">작성완료</button>
