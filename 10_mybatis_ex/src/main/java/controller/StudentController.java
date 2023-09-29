@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,89 +12,59 @@ import common.ActionForward;
 import service.StudentService;
 import service.StudentServiceImpl;
 
-/**
- * Servlet implementation class StudentController
- */
 @WebServlet("*.do")
+
 public class StudentController extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-	private StudentService studentService = new StudentServiceImpl();
-	
-  /**
-   * @see HttpServlet#HttpServlet()
-   */
-  public StudentController() {
-      super();
-      // TODO Auto-generated constructor stub
-  }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-    // BookFilter 실행 후 Controller 실행
+  
+  private static final long serialVersionUID = 1L;
+  private StudentService studentService = new StudentServiceImpl();
+  
+  protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     
-    // 요청 인코딩(BookFilter가 수행함) + 응답 타입과 인코딩
     request.setCharacterEncoding("UTF-8");
-
-	  response.setContentType("text/html; charset=UTF-8");
-	  
-    // 요청 주소 확인
+    response.setContentType("text/html; charset=UTF-8");
+    
     String requestURI = request.getRequestURI();
     String contextPath = request.getContextPath();
     String urlMapping = requestURI.substring(contextPath.length());
     
-    // 어디로 어떻게 이동할 것인지 알고 있는 ActionForward 객체
     ActionForward af = null;
     
-    // 요청에 따른 처리
     switch(urlMapping) {
-    // 단순 이동 (forward 처리)
-    case "/student/write.do":
-      af = new ActionForward("/student/write.jsp", false);
-      break;
-    case "/index.do":
-      af = new ActionForward("/index.jsp", false);  // forward 실행
-      break;
-    // 서비스 처리
-    case "/student/add.do":
-      af = studentService.studentAdd(request);
-      break;
     case "/student/list.do":
       af = studentService.studentList(request);
+      break;
+    case "/student/add.do":
+      studentService.studentAdd(request, response);
+      break;
+    case "/student/query.do":
+      af = studentService.studentQuery(request);
+      break;
+    case "/student/delete.do":
+      studentService.studentDelete(request, response);
       break;
     case "/student/detail.do":
       af = studentService.studentDetail(request);
       break;
-    case "/student/edit.do":
-      af = studentService.studentEdit(request);
-      break;
     case "/student/modify.do":
-      af = studentService.studentModify(request);
+      studentService.studentModify(request, response);
       break;
-    case "/student/delete.do":
-      af = studentService.studentDelete(request);
+    case "/student/write.do":
+      af = new ActionForward("/student/write.jsp", false);
       break;
     }
     
-    // 이동
     if(af != null) {
       if(af.isRedirect()) {
         response.sendRedirect(af.getPath());
       } else {
-        request.getRequestDispatcher(af.getPath()).forward(request, response); 
+        request.getRequestDispatcher(af.getPath()).forward(request, response);
       }
     }
     
   }
 
-  /**
-   * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-   */
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    // TODO Auto-generated method stub
     doGet(request, response);
   }
 

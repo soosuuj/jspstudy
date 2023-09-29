@@ -2,21 +2,21 @@ package domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
-@Getter
-@Setter
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
+@Data
 @Builder
-@ToString
 public class StudentDto {
   private int stuNo;
   private String name;
-  private int kor, eng, math;
-  private double ave;
+  private int kor;
+  private int eng;
+  private int math;
+  private int ave;
   private String grade;
+   
+
 }

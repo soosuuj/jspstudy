@@ -16,7 +16,7 @@
   })
 
   function fnList(){
-    $('#btn_list').click(function(){  
+    $('#btn_list').click(function(){
       location.href = '${contextPath}/book/list.do';
     })
   }

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<c:set var="contextPath" value="<%=request.getContextPath() %>" />
+<c:set var="contextPath" value="<%=request.getContextPath()%>" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,9 +11,9 @@
 </head>
 <body>
 
- <div>
+  <div>
     <a href="${contextPath}/student/list.do">학생관리</a>
- </div>
+  </div>
 
 </body>
 </html>
